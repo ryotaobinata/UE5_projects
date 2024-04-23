@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "GoalActor.generated.h"
 
+class UStaticMeshComponent;
+class USphereComponent;
+class UWorld;
+
 UCLASS()
 class PORTFOLIO_API AGoalActor : public AActor
 {
@@ -21,6 +25,19 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY( EditAnywhere, Category = "Default")
+	TObjectPtr<UWorld> LoadLevel;
+
+private:
+	UPROPERTY(EditAnywhere,Category=Goal,meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UStaticMeshComponent> Goal;
+
+	UPROPERTY(EditAnywhere, Category = Goal, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USphereComponent> Sphere;
+
+	UFUNCTION()
+	void OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 };
