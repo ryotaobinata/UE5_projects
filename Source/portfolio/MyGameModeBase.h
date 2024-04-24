@@ -6,6 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "MyGameModeBase.generated.h"
 
+class ABallCharacter;
+
 /**
  * 
  */
@@ -16,4 +18,13 @@ class PORTFOLIO_API AMyGameModeBase : public AGameModeBase
 public:
 	AMyGameModeBase();
 	void GameClear();
+
+	void KillPlayer(ABallCharacter* Player);
+
+protected:
+	virtual void BeginPlay() override;
+
+	FTransform SpawnTransform;
+private:
+	void RespawnPlayer();
 };
