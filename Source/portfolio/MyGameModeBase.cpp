@@ -18,7 +18,28 @@ void AMyGameModeBase::GameClear()
 void AMyGameModeBase::KillPlayer(ABallCharacter* Player)
 {
 	Player->Destroy();
-	RespawnPlayer();
+	Life--;
+	if (Life>=0)
+	{
+		RespawnPlayer();
+	}
+	else
+	{
+		RestartGame();
+	}
+	
+}
+
+void AMyGameModeBase::RestartGame()
+{
+	const FString CurrentLevelName = UGameplayStatics::GetCurrentLevelName(GetWorld());
+	UGameplayStatics::OpenLevel(GetWorld(), FName(*CurrentLevelName));
+}
+
+int32 AMyGameModeBase::AddCoin(const int32 CoinNumber)
+{
+	TotalCoins = TotalCoins + CoinNumber;
+	return TotalCoins;
 }
 
 void AMyGameModeBase::BeginPlay()

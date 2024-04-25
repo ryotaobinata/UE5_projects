@@ -44,7 +44,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void CountCoins();
+	
 private:
 	UPROPERTY(EditAnywhere, Category = Character,meta=(AllowPrivateAccses="true"))
 	TObjectPtr<UStaticMeshComponent> CharacterMesh;
@@ -70,8 +70,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Control, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UArrowComponent> Arrow;
-
-	int32 CollectCoins;
 
 	float Speed=300.0f;
 

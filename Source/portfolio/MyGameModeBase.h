@@ -21,10 +21,19 @@ public:
 
 	void KillPlayer(ABallCharacter* Player);
 
+	void RestartGame();
+
+	FTransform SpawnTransform;
+
+	int32 TotalCoins=0;
+
+	int32 AddCoin(const int32 CoinNumber);
+
 protected:
 	virtual void BeginPlay() override;
 
-	FTransform SpawnTransform;
 private:
 	void RespawnPlayer();
+
+	int32 Life = 3;
 };

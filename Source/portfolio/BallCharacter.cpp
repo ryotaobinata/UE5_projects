@@ -54,9 +54,6 @@ ABallCharacter::ABallCharacter()
 	Arrow->bHiddenInGame=false;
 
 
-
-	CollectCoins = 0;
-
 	DefaultMappingContext = LoadObject<UInputMappingContext>(nullptr, TEXT("/Game/MappingContext/IM_Controls"));
 
 	ControlAction = LoadObject<UInputAction>(nullptr, TEXT("/Game/InputAction/IA_Controls"));
@@ -145,16 +142,5 @@ void ABallCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
-void ABallCharacter::CountCoins()
-{
-	if (CollectCoins<5)
-	{
-		CollectCoins++;
-	}
-	if (CollectCoins>=5)
-	{
-		AMyGameModeBase* GameMode= Cast<AMyGameModeBase>(GetWorld()->GetAuthGameMode());
-		GameMode->GameClear();
-	}
-}
+
 
