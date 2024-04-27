@@ -21,6 +21,12 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> ButtonPlay;
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> ButtonQuit;
+
 	UFUNCTION()
 	void OnButtonPlayClicked();
+
+	UFUNCTION()
+	void OnButtonQuitClicked();
 };
