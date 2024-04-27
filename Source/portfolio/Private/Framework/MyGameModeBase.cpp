@@ -1,10 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MyGameModeBase.h"
-#include "BallCharacter.h"
+#include "Framework/MyGameModeBase.h"
+#include "portfolio/BallCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/PlayerStart.h"
+#include "Framework/MyGameInstance.h"
 
 AMyGameModeBase::AMyGameModeBase() {
 	DefaultPawnClass = ABallCharacter::StaticClass();
@@ -17,9 +18,13 @@ void AMyGameModeBase::GameClear()
 
 void AMyGameModeBase::KillPlayer(ABallCharacter* Player)
 {
+	UMyGameInstance* GameInstanse = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	Player->Destroy();
-	Life--;
-	if (Life>=0)
+	GameInstanse->TotalLifes--;
+
+	UE_LOG(LogTemp, Display, TEXT("TotalLifes:%d"), GameInstanse->TotalLifes);
+
+	if (GameInstanse->TotalLifes>=0)
 	{
 		RespawnPlayer();
 	}
@@ -32,14 +37,18 @@ void AMyGameModeBase::KillPlayer(ABallCharacter* Player)
 
 void AMyGameModeBase::RestartGame()
 {
+	UMyGameInstance* GameInstanse = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	GameInstanse->Initialize();
+
 	const FString CurrentLevelName = UGameplayStatics::GetCurrentLevelName(GetWorld());
 	UGameplayStatics::OpenLevel(GetWorld(), FName(*CurrentLevelName));
 }
 
 int32 AMyGameModeBase::AddCoin(const int32 CoinNumber)
 {
-	TotalCoins = TotalCoins + CoinNumber;
-	return TotalCoins;
+	UMyGameInstance* GameInstanse = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	GameInstanse->TotalCoins = GameInstanse->TotalCoins + CoinNumber;
+	return GameInstanse->TotalCoins;
 }
 
 void AMyGameModeBase::BeginPlay()
@@ -62,4 +71,5 @@ void AMyGameModeBase::RespawnPlayer()
 	//PlayerController‚ÌÝ’è
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	PlayerController->Possess(Player);
+
 }

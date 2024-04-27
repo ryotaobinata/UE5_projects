@@ -25,8 +25,6 @@ public:
 
 	FTransform SpawnTransform;
 
-	int32 TotalCoins=0;
-
 	int32 AddCoin(const int32 CoinNumber);
 
 protected:
@@ -35,5 +33,4 @@ protected:
 private:
 	void RespawnPlayer();
 
-	int32 Life = 3;
 };

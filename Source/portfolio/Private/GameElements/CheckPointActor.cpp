@@ -4,7 +4,7 @@
 #include "GameElements/CheckPointActor.h"
 #include "Components/SphereComponent.h"
 #include "portfolio/BallCharacter.h"
-#include "portfolio/MyGameModeBase.h"
+#include "Framework/MyGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values

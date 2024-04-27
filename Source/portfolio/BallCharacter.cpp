@@ -5,7 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "MyGameModeBase.h"
+#include "Framework/MyGameModeBase.h"
 #include "InputMappingContext.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
@@ -140,6 +140,11 @@ void ABallCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ABallCharacter::Jump);
 	}
 
+}
+
+void ABallCharacter::Bound(const FVector boundpower)
+{
+	CharacterMesh->AddImpulse(boundpower, TEXT("None"), true);
 }
 
 

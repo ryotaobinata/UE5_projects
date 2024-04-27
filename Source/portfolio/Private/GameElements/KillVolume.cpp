@@ -3,7 +3,7 @@
 
 #include "GameElements/KillVolume.h"
 #include "Components/BoxComponent.h"
-#include "portfolio/MyGameModeBase.h"
+#include "Framework/MyGameModeBase.h"
 #include "portfolio/BallCharacter.h"
 #include "Kismet/GameplayStatics.h"
 

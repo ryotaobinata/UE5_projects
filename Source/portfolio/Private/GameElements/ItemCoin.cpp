@@ -2,12 +2,13 @@
 
 
 #include "GameElements/ItemCoin.h"
-#include "portfolio/MyGameModeBase.h"
+#include "Framework/MyGameModeBase.h"
+#include "Framework/MyGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
 AItemCoin::AItemCoin()
 {
-	UStaticMesh* Mesh = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/EditorMeshes/EditorHelp"));
+	UStaticMesh* Mesh = LoadObject<UStaticMesh>(nullptr, TEXT("/Game/Assets/StaticMesh/S_CoinMesh"));
 	ItemMesh->SetStaticMesh(Mesh);
 }
 
@@ -15,7 +16,9 @@ void AItemCoin::GetItem()
 {
 	if (AMyGameModeBase* GameMode=Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
+		UMyGameInstance* GameInstanse = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
 		GameMode->AddCoin(Number);
-		UE_LOG(LogTemp, Display, TEXT("TotalNumber:%d"), GameMode->TotalCoins);
+		UE_LOG(LogTemp, Display, TEXT("TotalCoins:%d"), GameInstanse->TotalCoins);
 	}
 }
