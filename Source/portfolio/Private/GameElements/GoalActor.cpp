@@ -23,7 +23,6 @@ AGoalActor::AGoalActor()
 
 	Sphere->SetSphereRadius(72.f);
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AGoalActor::OnSphereBeginOverlap);
-
 }
 
 // Called when the game starts or when spawned
@@ -45,7 +44,7 @@ void AGoalActor::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComp, AActo
 	if (const ABallCharacter* Character=Cast<ABallCharacter>(OtherActor))
 	{
 		//UE_LOG(LogTemp, Display, TEXT("Goal!!"));
-		UGameplayStatics::OpenLevelBySoftObjectPtr(this, LoadLevel);
+		UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), this->LoadLevel);
 	}
 }
 

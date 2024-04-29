@@ -6,9 +6,13 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/PlayerStart.h"
 #include "Framework/MyGameInstance.h"
+#include "Framework/InGameHUD.h"
+#include "Framework/InGamePlayerController.h"
 
 AMyGameModeBase::AMyGameModeBase() {
 	DefaultPawnClass = ABallCharacter::StaticClass();
+	HUDClass = AInGameHUD::StaticClass();
+	PlayerControllerClass = AInGamePlayerController::StaticClass();
 }
 
 void AMyGameModeBase::GameClear()
@@ -37,11 +41,11 @@ void AMyGameModeBase::KillPlayer(ABallCharacter* Player)
 
 void AMyGameModeBase::RestartGame()
 {
-	UMyGameInstance* GameInstanse = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	GameInstanse->Initialize();
+	const APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(),0);
 
-	const FString CurrentLevelName = UGameplayStatics::GetCurrentLevelName(GetWorld());
-	UGameplayStatics::OpenLevel(GetWorld(), FName(*CurrentLevelName));
+	AInGameHUD* HUD = Cast<AInGameHUD>(PlayerController->GetHUD());
+
+	HUD->DispGameOver();
 }
 
 int32 AMyGameModeBase::AddCoin(const int32 CoinNumber)
